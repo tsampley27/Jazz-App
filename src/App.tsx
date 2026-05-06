@@ -68,18 +68,6 @@ const DEFAULT_SONGS: Song[] = [
       { chords: ['F'] }, { chords: ['F7'] }, { chords: ['Bb'] }, { chords: ['Bbm'] },
       { chords: ['F'] }, { chords: ['C7'] }, { chords: ['F'] }, { chords: ['F'] },
     ]
-  },
-  {
-    id: '5',
-    title: 'Blue Bossa',
-    composer: 'Kenny Dorham',
-    timeSignature: '4/4',
-    bars: [
-      { chords: ['Cm7'] }, { chords: ['Cm7'] }, { chords: ['Fm7'] }, { chords: ['Fm7'] },
-      { chords: ['Dm7b5'] }, { chords: ['G7alt'] }, { chords: ['Cm7'] }, { chords: ['Cm7'] },
-      { chords: ['Ebm7'] }, { chords: ['Ab7'] }, { chords: ['Dbmaj7'] }, { chords: ['Dbmaj7'] },
-      { chords: ['Dm7b5'] }, { chords: ['G7alt'] }, { chords: ['Cm7'] }, { chords: ['Dm7b5', 'G7alt'] },
-    ]
   }
 ];
 
