@@ -26,17 +26,51 @@ import {
 const DEFAULT_SONGS: Song[] = [
   {
     id: '1',
-    title: 'F Blues',
-    composer: 'Traditional',
+    title: 'Blue Monk',
+    composer: 'Thelonious Monk',
     timeSignature: '4/4',
     bars: [
-      { chords: ['F7'] }, { chords: ['Bb7'] }, { chords: ['F7'] }, { chords: ['F7'] },
-      { chords: ['Bb7'] }, { chords: ['Bb7'] }, { chords: ['F7'] }, { chords: ['D7'] },
-      { chords: ['Gm7'] }, { chords: ['C7'] }, { chords: ['F7'] }, { chords: ['C7'] },
+      { chords: ['Bb7'] }, { chords: ['Eb7'] }, { chords: ['Bb7'] }, { chords: ['Bb7'] },
+      { chords: ['Eb7'] }, { chords: ['Edim7'] }, { chords: ['Bb7'] }, { chords: ['D7'] },
+      { chords: ['Cm7'] }, { chords: ['F7'] }, { chords: ['Bb7', 'G7'] }, { chords: ['Cm7', 'F7'] },
     ]
   },
   {
     id: '2',
+    title: 'Sandu',
+    composer: 'Clifford Brown',
+    timeSignature: '4/4',
+    bars: [
+      { chords: ['Eb7'] }, { chords: ['Ab7'] }, { chords: ['Eb7'] }, { chords: ['Eb7'] },
+      { chords: ['Ab7'] }, { chords: ['Ab7'] }, { chords: ['Eb7'] }, { chords: ['Eb7'] },
+      { chords: ['Fm7'] }, { chords: ['Bb7'] }, { chords: ['Eb7', 'C7'] }, { chords: ['Fm7', 'Bb7'] },
+    ]
+  },
+  {
+    id: '3',
+    title: "Bags' Groove",
+    composer: 'Milt Jackson',
+    timeSignature: '4/4',
+    bars: [
+      { chords: ['F7'] }, { chords: ['Bb7'] }, { chords: ['F7'] }, { chords: ['F7'] },
+      { chords: ['Bb7'] }, { chords: ['Bb7'] }, { chords: ['F7'] }, { chords: ['F7'] },
+      { chords: ['Gm7'] }, { chords: ['C7'] }, { chords: ['F7', 'D7'] }, { chords: ['Gm7', 'C7'] },
+    ]
+  },
+  {
+    id: '4',
+    title: 'When The Saints',
+    composer: 'Traditional',
+    timeSignature: '4/4',
+    bars: [
+      { chords: ['F'] }, { chords: ['F'] }, { chords: ['F'] }, { chords: ['F'] },
+      { chords: ['F'] }, { chords: ['C7'] }, { chords: ['C7'] }, { chords: ['C7'] },
+      { chords: ['F'] }, { chords: ['F7'] }, { chords: ['Bb'] }, { chords: ['Bbm'] },
+      { chords: ['F'] }, { chords: ['C7'] }, { chords: ['F'] }, { chords: ['F'] },
+    ]
+  },
+  {
+    id: '5',
     title: 'Blue Bossa',
     composer: 'Kenny Dorham',
     timeSignature: '4/4',
