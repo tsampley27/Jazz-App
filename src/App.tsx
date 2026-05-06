@@ -71,9 +71,34 @@ const DEFAULT_SONGS: Song[] = [
   }
 ];
 
+const APP_DATA_VERSION = "1.4";
+
+const INSTRUMENT_EMOJIS: Record<Instrument, string> = {
+  'C': '🎹',
+  'Bb': '🎺',
+  'Eb': '🎷',
+  'A': '🪈'
+};
+
 export default function App() {
   const [songs, setSongs] = useState<Song[]>(() => {
+    const savedVersion = localStorage.getItem('app_version');
     const saved = localStorage.getItem('jazz_songs');
+    const parsedSaved: Song[] = saved ? JSON.parse(saved) : [];
+    
+    // If version mismatch or no version, merge official library with user-created songs
+    if (savedVersion !== APP_DATA_VERSION) {
+      localStorage.setItem('app_version', APP_DATA_VERSION);
+      
+      if (parsedSaved.length > 0) {
+        // Any song in localStorage whose ID is not in the current DEFAULT_SONGS is treated as a user song
+        const officialIds = DEFAULT_SONGS.map(s => s.id);
+        const userSongs = parsedSaved.filter(s => !officialIds.includes(s.id));
+        return [...DEFAULT_SONGS, ...userSongs];
+      }
+      return DEFAULT_SONGS;
+    }
+    
     return saved ? JSON.parse(saved) : DEFAULT_SONGS;
   });
   const [currentSongId, setCurrentSongId] = useState<string>(songs[0].id);
@@ -277,14 +302,15 @@ export default function App() {
                 <button
                   key={inst}
                   onClick={() => setInstrument(inst)}
-                  className={`px-4 py-1.5 text-xs font-black rounded-lg transition-all ${
+                  className={`px-3 py-1.5 text-xs font-black rounded-lg transition-all flex items-center gap-1.5 ${
                     instrument === inst 
                       ? 'bg-sheet text-ink shadow-sm ring-1 ring-ink/5' 
                       : 'text-ink/40 hover:text-ink/70'
                   }`}
                   id={`inst-${inst}`}
                 >
-                  {inst}
+                  <span>{INSTRUMENT_EMOJIS[inst]}</span>
+                  <span>{inst}</span>
                 </button>
               ))}
             </div>
