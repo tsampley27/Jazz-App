@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Short+Stack&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Short Stack", cursive;
+  
+  --color-paper: #f5f5f5;
+  --color-sheet: #ffffff;
+  --color-ink: #1a1a1a;
+  --color-ink-muted: #666666;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-ink font-sans transition-colors duration-300;
+  }
+}
+
+.fake-book-shadow {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.handwritten {
+  @apply font-hand;
+}
