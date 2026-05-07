@@ -265,44 +265,43 @@ export default function App() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-full relative" id="main-content">
         {/* Header/Controls */}
-        <header className="p-4 flex flex-wrap items-center justify-between gap-4 border-b border-ink/5 bg-paper/80 backdrop-blur sticky top-0 z-10">
-          <div className="flex items-center gap-6">
-            {!isSidebarOpen && <div className="w-8" />} {/* Spacer */}
-            <h1 className="text-2xl handwritten font-bold whitespace-nowrap">
+        <header className="p-2 md:p-4 flex flex-wrap items-center justify-between gap-2 md:gap-4 border-b border-ink/5 bg-paper/80 backdrop-blur sticky top-0 z-10">
+          <div className="flex items-center gap-2 md:gap-6">
+            {!isSidebarOpen && <div className="w-8 md:hidden" />} {/* Spacer for mobile button */}
+            <h1 className="text-sm md:text-2xl handwritten font-bold whitespace-nowrap">
               {currentSong.title}
             </h1>
-            <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-tight opacity-50">
+            <div className="flex items-center gap-1 md:gap-2 text-[10px] md:text-sm font-bold uppercase tracking-tight opacity-50">
               <span className="handwritten">{currentSong.composer}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3 bg-ink/5 p-1.5 px-3 rounded-xl border border-ink/5">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]">Notes</span>
+          <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-1.5 md:gap-3 bg-ink/5 p-1 md:p-1.5 px-2 md:px-3 rounded-lg md:rounded-xl border border-ink/5">
+              <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-[#0a0a0a]">Notes</span>
               <button
                 onClick={() => setShowNotes(!showNotes)}
-                className={`relative w-10 h-6 flex items-center rounded-full transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 ${
-                  showNotes ? 'bg-blue-500' : 'bg-ink/20'
+                className={`relative w-8 h-4.5 md:w-10 md:h-6 flex items-center rounded-full transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 px-0.5 ${
+                  showNotes ? 'bg-blue-500 justify-end' : 'bg-ink/20 justify-start'
                 }`}
                 id="toggle-notes-btn"
                 role="switch"
                 aria-checked={showNotes}
               >
                 <motion.div
-                  initial={false}
-                  animate={{ x: showNotes ? 18 : 2 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="w-4 h-4 bg-white rounded-full shadow-sm"
+                  layout
+                  transition={{ type: "spring", stiffness: 700, damping: 35 }}
+                  className="w-3 h-3 md:w-4 md:h-4 bg-white rounded-full shadow-sm"
                 />
               </button>
             </div>
 
-            <div className="flex bg-ink/5 p-1.5 rounded-xl border border-ink/5">
+            <div className="flex bg-ink/5 p-1 md:p-1.5 rounded-lg md:rounded-xl border border-ink/5">
               {(['C', 'Bb', 'Eb', 'A'] as Instrument[]).map(inst => (
                 <button
                   key={inst}
                   onClick={() => setInstrument(inst)}
-                  className={`px-3 py-1.5 text-xs font-black rounded-lg transition-all flex items-center gap-1.5 ${
+                  className={`px-1.5 py-1 md:px-3 md:py-1.5 text-[10px] md:text-xs font-black rounded-md md:rounded-lg transition-all flex items-center gap-1 md:gap-1.5 ${
                     instrument === inst 
                       ? 'bg-sheet text-ink shadow-sm ring-1 ring-ink/5' 
                       : 'text-ink/40 hover:text-ink/70'
@@ -310,14 +309,15 @@ export default function App() {
                   id={`inst-${inst}`}
                 >
                   <span>{INSTRUMENT_EMOJIS[inst]}</span>
-                  <span>{inst}</span>
+                  <span className="hidden xs:inline">{inst}</span>
+                  <span className="xs:hidden">{inst}</span>
                 </button>
               ))}
             </div>
 
             <button 
               onClick={() => setIsEditing(!isEditing)}
-              className={`p-2.5 rounded-xl transition-all border ${
+              className={`p-1.5 md:p-2.5 rounded-lg md:rounded-xl transition-all border ${
                 isEditing 
                   ? 'bg-ink text-white border-ink shadow-lg' 
                   : 'bg-sheet text-ink/60 border-ink/10 hover:border-ink/30 hover:text-ink shadow-sm'
@@ -325,13 +325,13 @@ export default function App() {
               id="toggle-edit-btn"
               title={isEditing ? "Save Changes" : "Edit Chart"}
             >
-              {isEditing ? <Save size={20} /> : <Edit2 size={20} />}
+              {isEditing ? <Save size={16} className="md:w-5 md:h-5" /> : <Edit2 size={16} className="md:w-5 md:h-5" />}
             </button>
           </div>
         </header>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 scroll-smooth">
+        <div className="flex-1 overflow-y-auto p-1.5 md:p-8 lg:p-12 scroll-smooth">
           <div className="max-w-4xl mx-auto space-y-12">
             {isEditing ? (
               <SongForm 
@@ -438,7 +438,7 @@ function SheetView({ song, instrument, clef, showNotes, onChordClick }: SheetVie
   }, [song]);
 
   return (
-    <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-1 md:gap-4" id="sheet-view">
+    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-1 md:gap-4" id="sheet-view">
       {groupedBars.map((group, idx) => (
         <BarCard 
           key={`bar-group-${group.startIndex}`} 
@@ -487,8 +487,8 @@ function FormattedChord({ chord }: { chord: string }) {
 
   return (
     <span className="handwritten inline-flex items-baseline">
-      <span className="text-3xl">{format(root)}</span>
-      <sup className="text-lg ml-0.5 mt-[-0.5em]">{format(ext)}</sup>
+      <span className="text-lg md:text-3xl">{format(root)}</span>
+      <sup className="text-[10px] md:text-lg ml-0.5 mt-[-0.5em]">{format(ext)}</sup>
     </span>
   );
 }
@@ -510,7 +510,7 @@ function BarCard({ bar, index, count = 1, showTimeSignature, defaultTimeSignatur
       id={`bar-${index}`}
     >
       {/* Bar Number */}
-      <div className="absolute top-1 left-1 md:top-1.5 md:left-2 text-[8px] md:text-[10px] handwritten text-ink font-bold opacity-60 md:opacity-80">
+      <div className="absolute top-0.5 left-0.5 md:top-1.5 md:left-2 text-[7px] md:text-[10px] handwritten text-ink font-bold opacity-40 md:opacity-80">
         {barRange}
       </div>
 
@@ -543,7 +543,7 @@ function BarCard({ bar, index, count = 1, showTimeSignature, defaultTimeSignatur
           return (
             <button 
               key={cIdx} 
-              className="space-y-0 md:space-y-1 block w-full group/chord hover:scale-105 transition-transform"
+              className="space-y-0 md:space-y-1 py-3 md:py-0 block w-full group/chord hover:scale-105 transition-transform"
               onClick={() => onChordClick(displayedChord, instrumentChord)}
             >
               <div className="text-center hidden md:block">
@@ -551,16 +551,16 @@ function BarCard({ bar, index, count = 1, showTimeSignature, defaultTimeSignatur
               </div>
               
               {/* Compact Mobile Chord Name */}
-              <div className="text-center md:hidden text-[9px] leading-none handwritten font-bold text-ink/80">
+              <div className="text-center md:hidden text-xs leading-none handwritten font-bold text-ink mb-2">
                 {displayedChord.replace(/b/g, '♭').replace(/#/g, '♯')}
               </div>
               
               {showNotes && transposedInfo && (
                 <div className="flex flex-col items-center gap-0 md:gap-1">
                   {/* Chord Tones */}
-                  <div className="flex flex-wrap justify-center gap-0.5 md:gap-1">
+                  <div className="flex flex-wrap justify-center gap-1 md:gap-1">
                     {transposedInfo.notes.map((note, nIdx) => (
-                      <span key={nIdx} className="px-0.5 md:px-1.5 py-0 md:py-0.5 text-[6px] md:text-[9px] font-bold border border-ink/5 md:border-ink/20 rounded-sm uppercase bg-ink/5">
+                      <span key={nIdx} className="px-1.5 md:px-1.5 py-1.5 md:py-0.5 text-[8px] md:text-[9px] font-bold border border-ink/5 md:border-ink/20 rounded-sm uppercase bg-ink/5">
                         <FormattedNote note={note} />
                       </span>
                     ))}
@@ -602,26 +602,28 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        className="relative bg-sheet w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-ink/10"
+        className="relative bg-sheet w-full max-w-lg max-h-[95vh] md:max-h-[90vh] flex flex-col rounded-2xl shadow-2xl border border-ink/10"
       >
-        <div className="p-6 md:p-8 space-y-8">
-          <div className="flex justify-between items-start">
-            <div className="space-y-1">
-              <h2 className="text-4xl md:text-5xl font-bold handwritten tracking-tight">
-                <FormattedChord chord={chordName} />
-              </h2>
-              <div className="text-[10px] uppercase font-bold tracking-[0.2em] text-ink/30">
-                {instrument !== 'C' ? `Written for ${instrument}: ${instrumentChord}` : `Chord Analysis (${info.tonic})`}
-              </div>
+        {/* Modal Header - Fixed */}
+        <div className="p-5 md:p-8 flex justify-between items-start border-b border-ink/5 flex-shrink-0">
+          <div className="space-y-1">
+            <h2 className="text-3xl md:text-5xl font-bold handwritten tracking-tight">
+              <FormattedChord chord={chordName} />
+            </h2>
+            <div className="text-[10px] uppercase font-bold tracking-[0.2em] text-ink/30">
+              {instrument !== 'C' ? `Written for ${instrument}: ${instrumentChord}` : `Chord Analysis (${info.tonic})`}
             </div>
-            <button 
-              onClick={onClose}
-              className="p-2 hover:bg-ink/5 rounded-full transition-colors"
-            >
-              <X size={24} />
-            </button>
           </div>
+          <button 
+            onClick={onClose}
+            className="p-2 hover:bg-ink/5 rounded-full transition-colors"
+          >
+            <X size={24} />
+          </button>
+        </div>
 
+        {/* Scrollable Content Area */}
+        <div className="flex-1 overflow-y-auto p-5 md:p-8 space-y-8 bg-paper/20">
           <div className="grid gap-8">
             {/* Chord Tones */}
             <div className="space-y-3">
@@ -629,7 +631,7 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
               <div className="flex flex-wrap gap-2">
                 {info.notes.map((note, idx) => (
                   <div key={idx} className="flex flex-col items-center gap-1">
-                    <div className="w-12 h-12 flex items-center justify-center rounded-xl border-2 border-ink text-lg font-bold bg-ink text-white shadow-lg">
+                    <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl border-2 border-ink text-sm md:text-lg font-bold bg-ink text-white shadow-lg">
                       <FormattedNote note={note} />
                     </div>
                     <span className="text-[10px] font-bold text-ink/40">
@@ -645,7 +647,7 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
               <h3 className="text-xs uppercase font-bold tracking-widest text-ink/40">Major Scale Foundation (1, 3, 5)</h3>
               <div className="flex flex-wrap gap-2">
                 {info.scaleNotes.map((note, idx) => (
-                  <div key={idx} className="w-10 h-10 flex items-center justify-center rounded-lg border border-ink/10 text-sm font-bold bg-ink/5">
+                  <div key={idx} className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg border border-ink/10 text-xs md:text-sm font-bold bg-ink/5">
                     <FormattedNote note={note} />
                   </div>
                 ))}
@@ -657,7 +659,7 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
               <h3 className="text-xs uppercase font-bold tracking-widest text-ink/40">Pentatonic Blues Scale (1, ♭3, 4, 5, ♭7)</h3>
               <div className="flex flex-wrap gap-2">
                 {info.bluesScale.map((note, idx) => (
-                  <div key={idx} className="px-3 py-2 flex items-center justify-center rounded-xl text-sm font-bold bg-blue-500/10 border border-blue-500/20 text-blue-800 shadow-sm">
+                  <div key={idx} className="px-2.5 py-1.5 md:px-3 md:py-2 flex items-center justify-center rounded-xl text-xs md:text-sm font-bold bg-blue-500/10 border border-blue-500/20 text-blue-800 shadow-sm">
                     <FormattedNote note={note} />
                   </div>
                 ))}
@@ -666,8 +668,9 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
           </div>
         </div>
 
-        <div className="p-4 bg-ink/[0.02] border-t border-ink/5 flex justify-center">
-            <p className="text-[9px] uppercase font-bold tracking-widest text-ink/30 text-center">
+        {/* Modal Footer - Fixed */}
+        <div className="p-3 md:p-4 bg-ink/[0.02] border-t border-ink/5 flex justify-center flex-shrink-0">
+            <p className="text-[8px] md:text-[9px] uppercase font-bold tracking-widest text-ink/30 text-center">
               Notes are automatically transposed for your {instrumentChord !== chordName ? instrument : 'Concert C'} instrument
             </p>
         </div>
