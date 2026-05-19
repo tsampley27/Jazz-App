@@ -215,7 +215,7 @@ export default function App() {
                   tabIndex={0}
                   className={`w-full text-left p-3 rounded-xl flex items-center justify-between group transition-all cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ink/20 ${
                     currentSongId === song.id 
-                      ? 'bg-white text-ink border-2 border-ink/10 fake-book-shadow' 
+                      ? 'bg-sheet text-ink border-2 border-ink/10 fake-book-shadow' 
                       : 'hover:bg-ink/5'
                   }`}
                   id={`song-btn-${song.id}`}
@@ -291,7 +291,7 @@ export default function App() {
                 <motion.div
                   layout
                   transition={{ type: "spring", stiffness: 700, damping: 35 }}
-                  className="w-3 h-3 md:w-4 md:h-4 bg-white rounded-full shadow-sm"
+                  className="w-3 h-3 md:w-4 md:h-4 bg-sheet rounded-full shadow-sm"
                 />
               </button>
             </div>
@@ -319,7 +319,7 @@ export default function App() {
               onClick={() => setIsEditing(!isEditing)}
               className={`p-1.5 md:p-2.5 rounded-lg md:rounded-xl transition-all border ${
                 isEditing 
-                  ? 'bg-ink text-white border-ink shadow-lg' 
+                  ? 'bg-ink text-paper border-ink shadow-lg' 
                   : 'bg-sheet text-ink/60 border-ink/10 hover:border-ink/30 hover:text-ink shadow-sm'
               }`}
               id="toggle-edit-btn"
@@ -556,19 +556,19 @@ function BarCard({ bar, index, count = 1, showTimeSignature, defaultTimeSignatur
               </div>
               
               {showNotes && transposedInfo && (
-                <div className="flex flex-col items-center gap-0 md:gap-1">
+                <div className="flex flex-col items-center gap-0 md:gap-1.5">
                   {/* Chord Tones */}
                   <div className="flex flex-wrap justify-center gap-1 md:gap-1">
-                    {transposedInfo.notes.map((note, nIdx) => (
-                      <span key={nIdx} className="px-1.5 md:px-1.5 py-1.5 md:py-0.5 text-[8px] md:text-[9px] font-bold border border-ink/5 md:border-ink/20 rounded-sm uppercase bg-ink/5">
-                        <FormattedNote note={note} />
-                      </span>
-                    ))}
+                      {transposedInfo.notes.map((note, nIdx) => (
+                        <span key={nIdx} className="px-2 py-1.5 md:px-2 md:py-1 text-[11px] md:text-sm font-bold border border-ink/15 md:border-ink/20 rounded-sm uppercase bg-ink/15">
+                          <FormattedNote note={note} />
+                        </span>
+                      ))}
                   </div>
-                  {/* Blues Scale (1, b3, 4, 5, b7) - Hidden on mobile */}
-                  <div className="hidden md:flex flex-wrap justify-center gap-0.5 md:gap-1">
+                  {/* Blues Scale (1, b3, 4, 5, b7) - Visible on mobile */}
+                  <div className="flex flex-wrap justify-center gap-0.5 md:gap-1">
                     {transposedInfo.bluesScale.map((note, sIdx) => (
-                      <span key={sIdx} className="px-0.5 md:px-1 py-0 md:py-0.5 text-[6px] md:text-[8px] font-bold text-blue-800 bg-blue-500/10 rounded-full uppercase">
+                      <span key={sIdx} className="px-1.5 py-1 md:px-2 md:py-1 text-[11px] md:text-[13px] font-bold text-blue-800 bg-blue-500/10 rounded-full uppercase">
                         <FormattedNote note={note} />
                       </span>
                     ))}
@@ -596,7 +596,7 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
       />
       <motion.div 
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -630,8 +630,8 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
               <h3 className="text-xs uppercase font-bold tracking-widest text-ink/40">Chord Tones (Arpeggio)</h3>
               <div className="flex flex-wrap gap-2">
                 {info.notes.map((note, idx) => (
-                  <div key={idx} className="flex flex-col items-center gap-1">
-                    <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl border-2 border-ink text-sm md:text-lg font-bold bg-ink text-white shadow-lg">
+                  <div key={idx} className="flex flex-col items-center gap-1.5">
+                    <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-xl border-2 border-ink text-base md:text-2xl font-bold bg-ink text-paper shadow-lg">
                       <FormattedNote note={note} />
                     </div>
                     <span className="text-[10px] font-bold text-ink/40">
@@ -647,7 +647,7 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
               <h3 className="text-xs uppercase font-bold tracking-widest text-ink/40">Major Scale Foundation (1, 3, 5)</h3>
               <div className="flex flex-wrap gap-2">
                 {info.scaleNotes.map((note, idx) => (
-                  <div key={idx} className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg border border-ink/10 text-xs md:text-sm font-bold bg-ink/5">
+                  <div key={idx} className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg border border-ink/20 text-sm md:text-base font-bold bg-ink/15">
                     <FormattedNote note={note} />
                   </div>
                 ))}
@@ -659,7 +659,7 @@ function ChordDetailsModal({ chordName, instrumentChord, onClose, instrument }: 
               <h3 className="text-xs uppercase font-bold tracking-widest text-ink/40">Pentatonic Blues Scale (1, ♭3, 4, 5, ♭7)</h3>
               <div className="flex flex-wrap gap-2">
                 {info.bluesScale.map((note, idx) => (
-                  <div key={idx} className="px-2.5 py-1.5 md:px-3 md:py-2 flex items-center justify-center rounded-xl text-xs md:text-sm font-bold bg-blue-500/10 border border-blue-500/20 text-blue-800 shadow-sm">
+                  <div key={idx} className="px-3 py-2 md:px-4 md:py-2.5 flex items-center justify-center rounded-xl text-sm md:text-base font-bold bg-blue-500/10 border border-blue-500/20 text-blue-800 shadow-sm">
                     <FormattedNote note={note} />
                   </div>
                 ))}
